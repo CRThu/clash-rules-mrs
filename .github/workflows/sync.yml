@@ -1,0 +1,74 @@
+name: Sync and Build MRS Rulesets
+
+on:
+  schedule:
+    # 每天北京时间 07:00 (UTC 23:00) 定时触发（上游 06:30 完成更新）
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Convert and Publish MRS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set variables
+        run: |
+          echo "RELEASE_NAME=Released on $(date +'%Y-%m-%d %H:%M')" >> $GITHUB_ENV
+          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Mihomo Core
+        run: |
+          # 使用 GITHUB_TOKEN 避免未鉴权 API 速率限制 (Rate Limit)
+          MIHOMO_URL=$(curl -fsSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/MetaCubeX/mihomo/releases/latest | grep "browser_download_url.*linux-amd64-compatible" | grep -v "v3" | cut -d '"' -f 4 | head -n 1)
+          if [ -z "$MIHOMO_URL" ]; then
+            MIHOMO_URL=$(curl -fsSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/MetaCubeX/mihomo/releases/latest | grep "browser_download_url.*linux-amd64" | head -n 1 | cut -d '"' -f 4)
+          fi
+          echo "Downloading Mihomo from: $MIHOMO_URL"
+          curl -fsSL -o mihomo.gz "$MIHOMO_URL"
+          gzip -d mihomo.gz
+          chmod +x mihomo
+          sudo mv mihomo /usr/local/bin/mihomo
+          mihomo -v
+
+      - name: Convert Rulesets
+        run: |
+          chmod +x scripts/build.sh
+          ./scripts/build.sh
+
+      - name: Release and upload assets
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ env.RELEASE_NAME }}
+          tag_name: ${{ env.TAG_NAME }}
+          draft: false
+          prerelease: false
+          files: |
+            ./out/**/*.mrs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to release branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: release
+          publish_dir: ./out
+          keep_files: false
+          force_orphan: true
+
+      - name: Purge jsdelivr CDN cache
+        run: |
+          cd out || exit 1
+          find . -type f -name "*.mrs" | while read -r file; do
+            clean_path="${file#./}"
+            echo "Purging CDN cache for: $clean_path"
+            curl -s -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@release/${clean_path}" > /dev/null 2>&1 || true
+          done

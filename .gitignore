@@ -1,0 +1,9 @@
+mihomo.exe
+mihomo.zip
+raw/
+out/
+raw_rules/
+temp_rules/
+output/
+.DS_Store
+Thumbs.db

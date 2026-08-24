@@ -1,19 +1,18 @@
 # clash-rules-mrs
 
-基于 [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules) 纯文本规则集，自动化每日同步并编译为 **Mihomo (Clash.Meta)** 原生二进制规则集（`.mrs` 格式）。
+基于 [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules) 纯文本规则集，每日定时同步并编译为 **Mihomo (Clash.Meta)** 原生二进制规则集（`.mrs` 格式）。
 
 ## 特性
 
-- **极小体积**：二进制编译与压缩，规则集体积缩减 60% ~ 80%（如 `reject` 从 5.2MB 缩减至 1.7MB）。
-- **极速解析**：客户端启动与重载秒级完成，大幅降低移动端与路由设备的内存占用。
-- **每日同步**：GitHub Actions 于北京时间每日 **07:00（UTC 23:00）** 自动拉取上游最新规则并编译发布到 `release` 分支与 GitHub Releases。
-- **对称架构**：源文件保存在 `raw/<source>/`，产物结构化输出至 `out/<source>/`。
+- **二进制编译**：体积缩减 60% ~ 80%，降低内存占用与解析耗时。
+- **每日同步**：GitHub Actions 于北京时间每日 07:00（UTC 23:00）自动拉取上游规则并构建。
+- **结构规范**：源码保存在 `raw/<source>/`，构建产物输出至 `out/<source>/`。
 
 ---
 
-## ⚡ 极简推荐配置（绕过大陆 / 白名单模式）
+## 推荐配置（绕过大陆模式）
 
-这是绝大多数用户推荐采用的**黄金极简配置**（仅需 4 个核心规则 + 1 条兜底，兼具极致性能与 100% 零误分流）：
+适用于绝大多数“国内流量直连、其余流量走代理”的分流场景：
 
 ```yaml
 rule-providers:
@@ -54,18 +53,18 @@ rules:
   - RULE-SET,private,DIRECT
   - RULE-SET,lancidr,DIRECT,no-resolve
 
-  # 2. 国内流量直连（先匹配 6 万+ 常用国内域名；未命中的由最新大陆 CIDR + 本地 GeoIP 双重兜底）
+  # 2. 国内流量直连（先匹配常用国内域名，未命中的由最新大陆 CIDR + 本地 GeoIP 双重兜底）
   - RULE-SET,direct,DIRECT
   - RULE-SET,cncidr,DIRECT
   - GEOIP,CN,DIRECT
 
-  # 3. 最终兜底：非大陆流量全走代理
+  # 3. 兜底：非大陆流量走代理
   - MATCH,PROXY
 ```
 
 ---
 
-## 完整规则集列表 (Loyalsoldier 源)
+## 规则集列表 (Loyalsoldier 源)
 
 | 规则名称 | 规则类型 | 格式 | 订阅路径 | 说明 |
 | :--- | :--- | :--- | :--- | :--- |

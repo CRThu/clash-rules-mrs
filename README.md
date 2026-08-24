@@ -10,7 +10,7 @@
 
 ---
 
-## 推荐配置（绕过大陆模式）
+## 推荐配置（白名单：绕过大陆模式）
 
 适用于绝大多数“国内流量直连、其余流量走代理”的分流场景：
 
@@ -49,16 +49,11 @@ rule-providers:
     interval: 86400
 
 rules:
-  # 1. 局域网与私有网络直连（纯 IP 规则加 no-resolve 避免多余解析）
   - RULE-SET,private,DIRECT
   - RULE-SET,lancidr,DIRECT,no-resolve
-
-  # 2. 国内流量直连（先匹配常用国内域名，未命中的由最新大陆 CIDR + 本地 GeoIP 双重兜底）
   - RULE-SET,direct,DIRECT
   - RULE-SET,cncidr,DIRECT
   - GEOIP,CN,DIRECT
-
-  # 3. 兜底：非大陆流量走代理
   - MATCH,PROXY
 ```
 

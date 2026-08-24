@@ -42,7 +42,7 @@ rule-providers:
     behavior: domain
     format: mrs
     url: "https://cdn.jsdelivr.net/gh/CRThu/clash-rules-mrs@release/loyalsoldier/reject.mrs"
-    path: ./ruleset/loyalsoldier/reject.mrs
+    path: ./ruleset/reject.mrs
     interval: 86400
 
   icloud:
@@ -50,7 +50,7 @@ rule-providers:
     behavior: domain
     format: mrs
     url: "https://cdn.jsdelivr.net/gh/CRThu/clash-rules-mrs@release/loyalsoldier/icloud.mrs"
-    path: ./ruleset/loyalsoldier/icloud.mrs
+    path: ./ruleset/icloud.mrs
     interval: 86400
 
   apple:
@@ -58,7 +58,7 @@ rule-providers:
     behavior: domain
     format: mrs
     url: "https://cdn.jsdelivr.net/gh/CRThu/clash-rules-mrs@release/loyalsoldier/apple.mrs"
-    path: ./ruleset/loyalsoldier/apple.mrs
+    path: ./ruleset/apple.mrs
     interval: 86400
 
   google:
@@ -66,7 +66,7 @@ rule-providers:
     behavior: domain
     format: mrs
     url: "https://cdn.jsdelivr.net/gh/CRThu/clash-rules-mrs@release/loyalsoldier/google.mrs"
-    path: ./ruleset/loyalsoldier/google.mrs
+    path: ./ruleset/google.mrs
     interval: 86400
 
   proxy:
@@ -74,7 +74,7 @@ rule-providers:
     behavior: domain
     format: mrs
     url: "https://cdn.jsdelivr.net/gh/CRThu/clash-rules-mrs@release/loyalsoldier/proxy.mrs"
-    path: ./ruleset/loyalsoldier/proxy.mrs
+    path: ./ruleset/proxy.mrs
     interval: 86400
 
   direct:
@@ -82,7 +82,7 @@ rule-providers:
     behavior: domain
     format: mrs
     url: "https://cdn.jsdelivr.net/gh/CRThu/clash-rules-mrs@release/loyalsoldier/direct.mrs"
-    path: ./ruleset/loyalsoldier/direct.mrs
+    path: ./ruleset/direct.mrs
     interval: 86400
 
   private:
@@ -90,7 +90,7 @@ rule-providers:
     behavior: domain
     format: mrs
     url: "https://cdn.jsdelivr.net/gh/CRThu/clash-rules-mrs@release/loyalsoldier/private.mrs"
-    path: ./ruleset/loyalsoldier/private.mrs
+    path: ./ruleset/private.mrs
     interval: 86400
 
   gfw:
@@ -98,7 +98,7 @@ rule-providers:
     behavior: domain
     format: mrs
     url: "https://cdn.jsdelivr.net/gh/CRThu/clash-rules-mrs@release/loyalsoldier/gfw.mrs"
-    path: ./ruleset/loyalsoldier/gfw.mrs
+    path: ./ruleset/gfw.mrs
     interval: 86400
 
   greatfire:
@@ -106,7 +106,7 @@ rule-providers:
     behavior: domain
     format: mrs
     url: "https://cdn.jsdelivr.net/gh/CRThu/clash-rules-mrs@release/loyalsoldier/greatfire.mrs"
-    path: ./ruleset/loyalsoldier/greatfire.mrs
+    path: ./ruleset/greatfire.mrs
     interval: 86400
 
   tld-not-cn:
@@ -114,7 +114,7 @@ rule-providers:
     behavior: domain
     format: mrs
     url: "https://cdn.jsdelivr.net/gh/CRThu/clash-rules-mrs@release/loyalsoldier/tld-not-cn.mrs"
-    path: ./ruleset/loyalsoldier/tld-not-cn.mrs
+    path: ./ruleset/tld-not-cn.mrs
     interval: 86400
 
   telegramcidr:
@@ -122,7 +122,7 @@ rule-providers:
     behavior: ipcidr
     format: mrs
     url: "https://cdn.jsdelivr.net/gh/CRThu/clash-rules-mrs@release/loyalsoldier/telegramcidr.mrs"
-    path: ./ruleset/loyalsoldier/telegramcidr.mrs
+    path: ./ruleset/telegramcidr.mrs
     interval: 86400
 
   cncidr:
@@ -130,7 +130,7 @@ rule-providers:
     behavior: ipcidr
     format: mrs
     url: "https://cdn.jsdelivr.net/gh/CRThu/clash-rules-mrs@release/loyalsoldier/cncidr.mrs"
-    path: ./ruleset/loyalsoldier/cncidr.mrs
+    path: ./ruleset/cncidr.mrs
     interval: 86400
 
   lancidr:
@@ -138,6 +138,6 @@ rule-providers:
     behavior: ipcidr
     format: mrs
     url: "https://cdn.jsdelivr.net/gh/CRThu/clash-rules-mrs@release/loyalsoldier/lancidr.mrs"
-    path: ./ruleset/loyalsoldier/lancidr.mrs
+    path: ./ruleset/lancidr.mrs
     interval: 86400
 ```
